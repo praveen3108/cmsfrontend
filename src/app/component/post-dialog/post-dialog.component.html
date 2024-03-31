@@ -21,6 +21,12 @@
 			<div *ngIf="postPhotoPreviewUrl" class="pb-3">
 				<img [src]="postPhotoPreviewUrl" alt="" style="max-width: 100%;">
 			</div>
+			<div *ngIf="videoPreviewUrl" class="pb-3">
+				<video style="max-width: 100%;" controls>
+					<source [src]="videoPreviewUrl" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+			</div>
 	
 			<div>
 				<div class="mb-3" *ngIf="postTags.length > 0">

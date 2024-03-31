@@ -10,6 +10,8 @@ import { SettingsComponent } from './component/settings/settings.component';
 import { SignupComponent } from './component/signup/signup.component';
 import { TimelineComponent } from './component/timeline/timeline.component';
 import { VerifyEmailComponent } from './component/verify-email/verify-email.component';
+import { AdminloginComponent } from './component/adminlogin/adminlogin.component';
+import { AllpostsComponent } from './component/allposts/allposts.component';
 
 const routes: Routes = [
 	{ path: '', component: TimelineComponent },
@@ -18,6 +20,9 @@ const routes: Routes = [
 	{ path: 'users/:userId', component: ProfileComponent },
 	{ path: 'signup', component: SignupComponent },
 	{ path: 'login', component: LoginComponent },
+	{ path: 'adminlogin', component: AdminloginComponent },
+	{ path: 'allposts', component: AllpostsComponent },
+	{ path: 'posts/tags/:tagName', component: AllpostsComponent },
 	{ path: 'logout', component: LogoutComponent },
 	{ path: 'settings', component: SettingsComponent },
 	{ path: 'verify-email/:token', component: VerifyEmailComponent },

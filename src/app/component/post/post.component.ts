@@ -27,6 +27,8 @@ export class PostComponent implements OnInit, OnDestroy {
 	@Input() isDetailedPost: boolean;
 	@Output() postDeletedEvent = new EventEmitter<PostResponse>();
 	authUserId: number;
+	authUserRole:string
+	postType:String;
 	defaultProfilePhotoUrl = environment.defaultProfilePhotoUrl;
 
 	private subscriptions: Subscription[] = [];
@@ -38,13 +40,27 @@ export class PostComponent implements OnInit, OnDestroy {
 		private postService: PostService) { }
 
 	ngOnInit(): void {
+		console.log(this.postResponse)
+		this.postType=
+		this.postType = this.extractFileType(this.postResponse.post.postPhoto);
+        console.log(this.postType); 
 		this.authUserId = this.authService.getAuthUserId();
+		this.authUserRole = this.authService.getAuthUserRole();
 	}
 
 	ngOnDestroy(): void {
 		this.subscriptions.forEach(sub => sub.unsubscribe());
 	}
-
+	extractFileType(url: string): string {
+		// Get the part of the URL after the last '/'
+		const filename = url.substring(url.lastIndexOf('/') + 1);
+		
+		// Get the part of the filename after the last '.'
+		const fileType = filename.substring(filename.lastIndexOf('.') + 1);
+	  
+		return fileType.toLowerCase(); // Convert to lowercase for consistency
+	  }
+	  
 	openLikeDialog(): void {
 		this.matDialog.open(PostLikeDialogComponent, {
 			data: this.postResponse.post,

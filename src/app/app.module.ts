@@ -60,6 +60,8 @@ import { PhotoUploadDialogComponent } from './component/photo-upload-dialog/phot
 import { TagDialogComponent } from './component/tag-dialog/tag-dialog.component';
 import { ForgotPasswordDialogComponent } from './component/forgot-password-dialog/forgot-password-dialog.component';
 import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
+import { AdminloginComponent } from './component/adminlogin/adminlogin.component';
+import { AllpostsComponent } from './component/allposts/allposts.component';
 
 @NgModule({
 	declarations: [
@@ -91,7 +93,9 @@ import { ResetPasswordComponent } from './component/reset-password/reset-passwor
   PhotoUploadDialogComponent,
   TagDialogComponent,
   ForgotPasswordDialogComponent,
-  ResetPasswordComponent
+  ResetPasswordComponent,
+  AdminloginComponent,
+  AllpostsComponent
 	],
 	imports: [
 		BrowserModule,

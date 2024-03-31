@@ -17,6 +17,7 @@ export class PostService {
 	constructor(private httpClient: HttpClient) { }
 
 	createNewPost(content: string, postPhoto: File, postTags: any[]): Observable<Post | HttpErrorResponse> {
+		console.log(postPhoto)
 		const formData = new FormData();
 		formData.append('content', content);
 		formData.append('postPhoto', postPhoto);

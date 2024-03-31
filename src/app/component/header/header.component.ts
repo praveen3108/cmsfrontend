@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	hasMoreNotifications: boolean = false;
 	fetchingResult: boolean = false;
 	defaultProfilePhotoUrl = environment.defaultProfilePhotoUrl;
-	
+	role:string
 	private subscriptions: Subscription[] = [];
 
 	constructor(
@@ -43,6 +43,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		if (this.authService.isUserLoggedIn()) {
 			this.isUserLoggedIn = true;
 			this.authUser = this.authService.getAuthUserFromCache();
+			this.role = this.authService.getAuthUserRole();
+
 		} else {
 			this.isUserLoggedIn = false;
 		}

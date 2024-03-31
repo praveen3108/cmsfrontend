@@ -22,6 +22,7 @@ export class PostDialogComponent implements OnInit, OnDestroy {
 	postFormGroup: FormGroup;
 	postPhoto: File;
 	postPhotoPreviewUrl: string;
+	videoPreviewUrl:string;
 	postTags: any[] = [];
 	creatingPost: boolean = false;
 
@@ -42,10 +43,10 @@ export class PostDialogComponent implements OnInit, OnDestroy {
 		this.postFormGroup = this.formBuilder.group({
 			content: new FormControl(((this.dataPost && this.dataPost.content) ? this.dataPost.content : ''), [Validators.maxLength(4096)])
 		});
-
 		if (this.dataPost) {
 			if (this.dataPost.postPhoto) {
 				this.postPhotoPreviewUrl = this.dataPost.postPhoto;
+
 			}
 
 			this.populateWithPostTags();
@@ -57,14 +58,37 @@ export class PostDialogComponent implements OnInit, OnDestroy {
 	}
 
 	previewPostPhoto(event: any): void {
+		console.log(event.target.files[0])
 		if (event.target.files) {
 			this.postPhoto = event.target.files[0];
 			const reader = new FileReader();
 			reader.readAsDataURL(this.postPhoto);
-			reader.onload = (e: any) => {
-				this.postPhotoPreviewUrl = e.target.result;
+			
+			if (this.postPhoto.type.includes('video')) {
+				// Handle video preview
+				this.handleVideoPreview(this.postPhoto);
+			} else if (this.postPhoto.type.includes('image')) {
+				// Handle image preview
+				this.handleImagePreview(this.postPhoto);
+			} else {
+				console.error('Unsupported file type');
 			}
 		}
+	}
+	private handleVideoPreview(file: File): void {
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = () => {
+			this.videoPreviewUrl = reader.result as string;
+		};
+	}
+	
+	private handleImagePreview(file: File): void {
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = () => {
+			this.postPhotoPreviewUrl = reader.result as string;
+		};
 	}
 
 	openPostPhotoDeleteConfirmDialog(): void {

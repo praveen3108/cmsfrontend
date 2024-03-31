@@ -15,7 +15,7 @@
 	</mat-card-header>
 
 	<div align="end" style="position: absolute; top: 10px; right: 10px"
-		*ngIf="postResponse.post.author.id === authUserId">
+		*ngIf="postResponse.post.author.id === authUserId || authUserRole==='ROLE_ADMIN'">
 		<button mat-icon-button [matMenuTriggerFor]="coverPhotoMenu">
 			<mat-icon>more_vert</mat-icon>
 		</button>
@@ -31,7 +31,12 @@
 		</mat-menu>
 	</div>
 
-	<img *ngIf="postResponse.post.postPhoto" mat-card-image src="{{ postResponse.post.postPhoto }}" alt="">
+	<img *ngIf="postType!='mp4'" mat-card-image src="{{ postResponse.post.postPhoto }}" alt="">
+
+	<video *ngIf="postType=='mp4'" style="max-width: 100%;" controls>
+		<source src="{{postResponse.post.postPhoto}}" type="video/mp4">
+		Your browser does not support the video tag.
+	</video>
 
 	<mat-card-content class="mb-4">
 		<p class="p-2" *ngIf="isDetailedPost && postResponse.post.content.length > 0">

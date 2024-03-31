@@ -28,6 +28,9 @@ export class AuthService {
 	login(userLogin: UserLogin): Observable<HttpResponse<User> | HttpErrorResponse> {
 		return this.httpClient.post<User>(`${this.host}/login`, userLogin, { observe: 'response' });
 	}
+	adminlogin(userLogin: UserLogin): Observable<HttpResponse<User> | HttpErrorResponse> {
+		return this.httpClient.post<User>(`${this.host}/adminlogin`, userLogin, { observe: 'response' });
+	}
 
 	logout(): void {
 		this.authToken = null;
@@ -67,6 +70,10 @@ export class AuthService {
 
 	getAuthUserId(): number {
 		return this.getAuthUserFromCache().id;
+	}
+	getAuthUserRole(): string {
+		console.log(this.getAuthUserFromCache().role)
+		return this.getAuthUserFromCache().role;
 	}
 
 	isUserLoggedIn(): boolean {

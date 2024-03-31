@@ -17,6 +17,10 @@ export class TimelineService {
 		const reqParams = new HttpParams().set('page', page).set('size', size);
 		return this.httpClient.get<PostResponse[] | HttpErrorResponse>(`${this.host}/`, { params: reqParams });
 	}
+	getAllTimelinePosts(page: number, size: number): Observable<PostResponse[] | HttpErrorResponse> {
+		const reqParams = new HttpParams().set('page', page).set('size', size);
+		return this.httpClient.get<PostResponse[] | HttpErrorResponse>(`${this.host}/getallPosts`, { params: reqParams });
+	}
 
 	getTimelineTags(): Observable<Tag[] | HttpErrorResponse> {
 		return this.httpClient.get<Tag[] | HttpErrorResponse>(`${this.host}/tags`);
