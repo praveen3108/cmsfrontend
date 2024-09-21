@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -13,6 +13,7 @@ import { User } from '../model/user';
 export class PostService {
 	authUser: User;
 	private host = environment.apiUrl;
+	private aihost = environment.genAiurl;
 
 	constructor(private httpClient: HttpClient) { }
 
@@ -23,6 +24,18 @@ export class PostService {
 		formData.append('postPhoto', postPhoto);
 		formData.append('postTags', JSON.stringify(postTags));
 		return this.httpClient.post<Post | HttpErrorResponse>(`${this.host}/posts/create`, formData);
+	}
+	generateAiContect(content: string): Observable<Post | HttpErrorResponse> {
+
+		const headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+		  });
+		  const body = {
+			prompt: content  // or simply { prompt } in ES6 shorthand
+		  };
+		return this.httpClient.post<Post | HttpErrorResponse>(`${this.aihost}/submit`, body,{
+			headers:headers,
+		});
 	}
 
 	updatePost(postId: number, content: string, postPhoto: File, postTags: any[]): Observable<Post | HttpErrorResponse> {

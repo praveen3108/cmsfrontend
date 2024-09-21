@@ -47,7 +47,14 @@
 							{{ (dataPost && dataPost.postPhoto) ? 'Update Photo' : 'Add Photo' }}
 						</span>
 					</div>
+					
 				</label>
+				<span class="border border-1 rounded-pill ps-3 pt-1 pe-3 pb-1 cursor-pointer" (click)="generateContectFormAi()">
+					<mat-icon class="align-middle">memory</mat-icon>
+					<span class="align-middle fw-500 ps-2">
+					Generate Content
+				   </span>
+				</span>
 	
 				<span class="fw-500 align-middle cursor-pointer text-danger d-inline-block ms-4" *ngIf="dataPost && dataPost.postPhoto" (click)="openPostPhotoDeleteConfirmDialog()">Delete Photo</span>
 				
@@ -59,6 +66,7 @@
 			<button mat-raised-button color="primary" type="submit" class="position-absolute" style="top: 4px; right: 0;">
 				{{ dataPost ? 'Update' : 'Post' }}
 			</button>
+			
 		</form>
 	
 		<div *ngIf="creatingPost" class="position-absolute" style="transform: scale(0.3); top: -35px; right: -35px;">

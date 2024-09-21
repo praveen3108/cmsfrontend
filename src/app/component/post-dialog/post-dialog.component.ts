@@ -240,4 +240,30 @@ export class PostDialogComponent implements OnInit, OnDestroy {
 			});
 		});
 	}
+
+	 generateContectFormAi(){
+		this.postService.generateAiContect(this.content.value).subscribe({
+			next: (createdPost: Post) => {
+				
+				this.matSnackbar.openFromComponent(SnackbarComponent, {
+					data: 'Ai Contect generated successfully.',
+					duration: 5000
+				});
+				
+				var generatedvalue=createdPost['generated_text']
+				console.log(generatedvalue)
+				//this.postFormGroup.patchValue(generatedvalue)
+				this.postFormGroup.get('content')?.setValue(generatedvalue);
+
+			},
+			error: (errorResponse: HttpErrorResponse) => {
+				this.matSnackbar.openFromComponent(SnackbarComponent, {
+					data: AppConstants.snackbarErrorContent,
+					panelClass: ['bg-danger'],
+					duration: 5000
+				});
+			
+			}
+		})
+	 }
 }
